@@ -3,7 +3,7 @@ class Card {
     this.id = 0;
     this.animalNr = 0;
     this.animalPath = ``;
-    this.choice = "";
+    this.choice = ``;
   }
   setAnimal(animalNr, choice) {
     choice === "farm_animals" ? (this.animalPath = `images_2/${this.animalNr}.jpg`) : (this.animalPath = `images/${this.animalNr}.jpg`);
@@ -16,11 +16,11 @@ class BlackSquare {
   }
 }
 
-let animalsRandomNumbers = [];
-let animalsTab = [];
-let curtainTab = [];
-let animalPairs = []; // visible clicked 2 pairs animal
-let temp = []; // temportary table to comparison 2 animals
+let animalsRandomNumbers = [],
+  animalsTab = [],
+  curtainTab = [],
+  animalPairs = [], // visible clicked 2 pairs animal
+  temp = []; // temportary table to comparison 2 animals
 let clickerNr = 0;
 let myAnimalsChoice = "";
 
@@ -109,6 +109,19 @@ gameTime = () => {
   return time;
 };
 
+// Player choice Farm or Forest animals and start game!
+gameButtonHandler = () => {
+  document.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const myChoice = e.target.id;
+      myChoice === "farm_animals" ? (myAnimalsChoice = myChoice) : (myAnimalsChoice = "forest_animals");
+      element.style.visibility = "hidden";
+      startTime = new Date().getTime();
+      gameStart();
+    });
+  });
+};
+
 // Short info on Start and End game
 showInfo = () => {
   element = document.createElement("div");
@@ -122,15 +135,7 @@ showInfo = () => {
     <p><button id="farm_animals">Farm</button>
     <button id="forest_animals">Forest</button> </p>`;
     // Start Game button handler
-    document.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const myChoice = e.target.id;
-        myChoice === "farm_animals" ? (myAnimalsChoice = myChoice) : (myAnimalsChoice = "forest_animals");
-        element.style.visibility = "hidden";
-        startTime = new Date().getTime();
-        gameStart();
-      });
-    });
+    gameButtonHandler();
   } else if (animalPairs.length === animalsTab.length) {
     document.querySelector(".animals").style.filter = "blur(8px)";
     element.classList.add("info");

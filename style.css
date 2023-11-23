@@ -45,6 +45,10 @@ div.tile_hidding {
   z-index: 1;
 }
 
+div.tile_hidding:hover {
+  background-color: dodgerblue;
+}
+
 .info {
   position: fixed;
   top: 50%;

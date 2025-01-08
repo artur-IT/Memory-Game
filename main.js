@@ -6,7 +6,8 @@ class Card {
     this.choice = ``;
   }
   setAnimal(animalNr, choice) {
-    choice === "farm_animals" ? (this.animalPath = `images_2/${this.animalNr}.jpg`) : (this.animalPath = `images/${this.animalNr}.jpg`);
+    this.animalPath = `images${choice === "farm_animals" ? "_2" : ""}/${this.animalNr}.jpg`;
+    choice === "farm_animals" ?? this.animalPath;
   }
 }
 
@@ -27,25 +28,14 @@ let myAnimalsChoice = "";
 // GENERATOR RANDOM UNIQUE NUMBER for all Animals
 randomNumber = () => {
   let temp = [];
-  for (let i = 0; i < 9; ) {
-    const divNumber = parseInt((Math.random() * 8).toFixed());
-    if (animalsRandomNumbers.includes(divNumber)) {
-      divNumber;
-      i--;
-    } else animalsRandomNumbers.push(divNumber);
-    i++;
-  }
-  if (animalsRandomNumbers.length === 9) {
-    for (let i = 0; i < 9; ) {
-      const divNumber = parseInt((Math.random() * 8).toFixed());
-      if (temp.includes(divNumber)) {
-        divNumber;
-        i--;
-      } else temp.push(divNumber);
-      i++;
+  while (animalsRandomNumbers.length < 9) {
+    const num = Math.floor(Math.random() * 9);
+    if (!animalsRandomNumbers.includes(num)) {
+      animalsRandomNumbers.push(num);
+      temp.push(num);
     }
-    animalsRandomNumbers = animalsRandomNumbers.concat(temp);
   }
+  animalsRandomNumbers = animalsRandomNumbers.concat(temp);
 };
 
 // SET ANIMALS STRUCTURE IN HTML
